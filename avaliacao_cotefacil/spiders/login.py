@@ -10,6 +10,7 @@ from scrapy.http.cookies import CookieJar
 from scrapy.utils.defer import maybe_deferred_to_future
 
 from avaliacao_cotefacil.suppliers.payloads import login
+from avaliacao_cotefacil.suppliers.routes import url_login
 
 
 class LoginSpider(scrapy.Spider):
@@ -28,7 +29,7 @@ class LoginSpider(scrapy.Spider):
         self.logger.info('Iniciando processo de Login')
 
         yield scrapy.Request(
-            url='https://peapi.servimed.com.br/api/usuario/login',
+            url=url_login,
             method='POST',
             body=json.dumps(login(self.user, self.password)),
             headers={'Content-Type': 'application/json'},
