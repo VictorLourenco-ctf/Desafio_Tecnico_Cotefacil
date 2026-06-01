@@ -1,3 +1,4 @@
+import argparse
 import os
 
 from dotenv import load_dotenv
@@ -11,6 +12,21 @@ from avaliacao_cotefacil.spiders.login import LoginSpider
 load_dotenv()
 
 def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Executa o spider de produtos"
+    )
+
+    parser.add_argument(
+        "--user",
+        help="Usuário de acesso"
+    )
+
+    parser.add_argument(
+        "--password",
+        help="Senha de acesso"
+    )
+
+    args = parser.parse_args()
 
     if not os.getenv("USER") or not os.getenv("PASSWORD"):
         raise EnvironmentError()
@@ -20,8 +36,8 @@ def main() -> None:
     process = CrawlerProcess(settings)
     process.crawl(
         ProductsSpider,
-        user=os.getenv("USER"),
-        password=os.getenv("PASSWORD")
+        user=args.user or os.getenv("USER"),
+        password=args.password or os.getenv("PASSWORD")
     )
     process.start()
 
