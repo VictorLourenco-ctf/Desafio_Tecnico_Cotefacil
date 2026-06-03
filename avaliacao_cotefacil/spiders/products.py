@@ -40,7 +40,7 @@ class ProductsSpider(LoginSpider):
                 if not parsed_body["lista"]:
                     break
 
-                # total_pages = int(parsed_body["totalRegistros"] / parsed_body["registrosPorPagina"])
+                total_pages = int(parsed_body["totalRegistros"] / parsed_body["registrosPorPagina"])
                 page += 1
                 list_products.extend(parsed_body["lista"])
 
